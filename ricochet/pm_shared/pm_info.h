@@ -1,4 +1,4 @@
-// Physics info string definition
+﻿// Physics info string definition
 #if !defined( PM_INFOH )
 #define PM_INFOH
 #ifdef _WIN32

@@ -1,4 +1,4 @@
-
+﻿
 #ifndef ServerBrowser_H
 #define ServerBrowser_H
 

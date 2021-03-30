@@ -1,4 +1,4 @@
-#if !defined( HUD_SERVERSH )
+﻿#if !defined( HUD_SERVERSH )
 #define HUD_SERVERSH
 #pragma once
 

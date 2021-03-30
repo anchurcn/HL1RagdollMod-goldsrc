@@ -1,4 +1,4 @@
-#ifndef __APIPROXY__
+﻿#ifndef __APIPROXY__
 #define __APIPROXY__
 
 #include "archtypes.h"     // DAL

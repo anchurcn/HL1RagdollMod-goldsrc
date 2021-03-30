@@ -1,4 +1,4 @@
-
+﻿
 #ifndef VGUI_INT_H
 #define VGUI_INT_H
 

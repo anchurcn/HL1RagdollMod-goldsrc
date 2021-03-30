@@ -1,4 +1,4 @@
-#if !defined ( BENCHH )
+﻿#if !defined ( BENCHH )
 #define BENCHH
 #pragma once
 

@@ -1,4 +1,4 @@
-// in_win.c -- windows 95 mouse and joystick code
+﻿// in_win.c -- windows 95 mouse and joystick code
 // 02/21/97 JCB Added extended DirectInput code to support external controllers.
 
 #include "port.h"

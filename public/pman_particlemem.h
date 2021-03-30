@@ -1,4 +1,4 @@
-#ifndef PARTICLEMEM_H__
+﻿#ifndef PARTICLEMEM_H__
 #define PARTICLEMEM_H__
 
 #ifdef _WIN32

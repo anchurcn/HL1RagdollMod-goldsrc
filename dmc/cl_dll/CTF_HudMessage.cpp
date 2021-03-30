@@ -1,4 +1,4 @@
-#ifdef THREEWAVE
+﻿#ifdef THREEWAVE
 
 #include "hud.h"
 #include "cl_util.h"

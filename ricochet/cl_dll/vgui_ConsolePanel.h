@@ -1,4 +1,4 @@
-
+﻿
 #ifndef CONSOLEPANEL_H
 #define CONSOLEPANEL_H
 

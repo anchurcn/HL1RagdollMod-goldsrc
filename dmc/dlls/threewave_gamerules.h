@@ -1,4 +1,4 @@
-#ifdef THREEWAVE
+﻿#ifdef THREEWAVE
 
 #define BLUE 2
 #define RED 1

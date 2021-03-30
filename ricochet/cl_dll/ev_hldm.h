@@ -1,4 +1,4 @@
-#if !defined ( EV_HLDMH )
+﻿#if !defined ( EV_HLDMH )
 #define EV_HLDMH
 
 enum disc_e 

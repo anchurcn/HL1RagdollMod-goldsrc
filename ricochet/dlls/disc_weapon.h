@@ -1,4 +1,4 @@
-#if !defined( DISC_WEAPON_H )
+﻿#if !defined( DISC_WEAPON_H )
 #define DISC_WEAPON_H
 #ifdef _WIN32
 #pragma once

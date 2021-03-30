@@ -1,4 +1,4 @@
-// mathlib.c -- math primitives
+﻿// mathlib.c -- math primitives
 
 #include "mathlib.h"
 #include "const.h"

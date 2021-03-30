@@ -1,4 +1,4 @@
-#if !defined( RICOCHET_BSPFILE_H )
+﻿#if !defined( RICOCHET_BSPFILE_H )
 #define RICOCHET_BSPFILE_H
 #ifdef _WIN32
 #pragma once

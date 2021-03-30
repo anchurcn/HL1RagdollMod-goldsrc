@@ -1,4 +1,4 @@
-//
+﻿//
 // Word size dependent definitions
 // DAL 1/03
 //

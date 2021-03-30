@@ -1,4 +1,4 @@
-#ifndef PARTICLEMAN_H
+﻿#ifndef PARTICLEMAN_H
 #define PARTICLEMAN_H
 
 #include "interface.h"

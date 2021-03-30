@@ -1,4 +1,4 @@
-#if !defined( RICHOCHET_JUMPADS_H )
+﻿#if !defined( RICHOCHET_JUMPADS_H )
 #define RICHOCHET_JUMPADS_H
 #ifdef _WIN32
 #pragma once

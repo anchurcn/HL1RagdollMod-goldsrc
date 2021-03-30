@@ -1,4 +1,4 @@
-// hud_benchtrace.cpp
+﻿// hud_benchtrace.cpp
 // Functions for spawning a thread to get a hopcount to a particular ip address and returning the result in a specified
 //  variable
 

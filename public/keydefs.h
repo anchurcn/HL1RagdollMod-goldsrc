@@ -1,4 +1,4 @@
-// keydefs.h
+﻿// keydefs.h
 #ifndef KEYDEFS_H
 #define KEYDEFS_H
 #ifdef _WIN32

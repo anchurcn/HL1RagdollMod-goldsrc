@@ -1,4 +1,4 @@
-// lighting.c
+﻿// lighting.c
 
 #include "light.h"
 

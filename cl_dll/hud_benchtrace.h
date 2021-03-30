@@ -1,4 +1,4 @@
-#if !defined( HUD_BENCHTRACEH )
+﻿#if !defined( HUD_BENCHTRACEH )
 #define HUD_BENCHTRACEH
 #pragma once
 

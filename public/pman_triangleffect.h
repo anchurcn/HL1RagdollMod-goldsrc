@@ -1,4 +1,4 @@
-#ifndef TRIANGLEEFFECT_H__
+﻿#ifndef TRIANGLEEFFECT_H__
 #define TRIANGLEEFFECT_H__
 
 #ifdef _WIN32
