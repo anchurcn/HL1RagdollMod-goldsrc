@@ -16,6 +16,8 @@
 #include "Exports.h"
 
 #include "particleman.h"
+#include"physics.h"
+#include<com_model.h>
 extern IParticleMan *g_pParticleMan;
 
 void Game_AddObjects( void );
@@ -61,6 +63,15 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 
 	}
 
+	if (ent->index && ent->index < 512)
+	{
+		// server side brush entity only.(breakables, trains, func_walls...)
+		if (ent->model->type == modtype_t::mod_brush)
+		{
+			gPhysics.AddCollider(ent);
+		}
+	}
+	
 	return 1;
 }
 
@@ -318,6 +329,12 @@ void DLLEXPORT HUD_CreateEntities( void )
 	Game_AddObjects();
 
 	GetClientVoiceMgr()->CreateEntities();
+
+	static float oldtime = 0;
+	float currentTime = gEngfuncs.GetClientTime();
+	float delta = currentTime-oldtime;
+	oldtime = currentTime;
+	gPhysics.Update(delta);
 }
 
 #if defined( _TFC )
@@ -470,6 +487,9 @@ void DLLEXPORT HUD_TempEntUpdate (
 		}
 		if ( !active )		// Kill it
 		{
+			if (pTemp->callback && pTemp->flags & FTENT_KILLCALLBACK)
+				pTemp->callback(pTemp, frametime, client_time);
+
 			pTemp->next = *ppTempEntFree;
 			*ppTempEntFree = pTemp;
 			if ( !pprev )	// Deleting at head of list
