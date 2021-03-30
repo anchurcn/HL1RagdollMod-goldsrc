@@ -37,6 +37,9 @@
 #include "tri.h"
 #include "vgui_TeamFortressViewport.h"
 #include "filesystem_utils.h"
+#include "../public/interface.h"
+#include "physics.h"
+#include"phy_corpse.h"
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
@@ -156,6 +159,7 @@ int DLLEXPORT Initialize(cl_enginefunc_t* pEnginefuncs, int iVersion)
 }
 
 
+bool newLevelBegin = false;
 /*
 ==========================
 	HUD_VidInit
@@ -172,8 +176,29 @@ int DLLEXPORT HUD_VidInit()
 	gHUD.VidInit();
 
 	VGui_Startup();
+	newLevelBegin = true;
 
 	return 1;
+}
+void CheckLevelChange()
+{
+	if (newLevelBegin)
+	{
+		newLevelBegin = false;
+
+		const char* pLevelName = gEngfuncs.pfnGetLevelName();
+		if (pLevelName && pLevelName[0]) {
+			gPhysics.ChangeLevel(pLevelName);
+			if (!pgCorpseMgr)
+				delete pgCorpseMgr;
+			pgCorpseMgr = new CorpseManager();
+		}
+		else
+		{
+			gEngfuncs.pfnClientCmd("disconnect\n");
+			gEngfuncs.Con_Printf("Couldn't get map name from level name!\n");
+		}
+	}
 }
 
 /*

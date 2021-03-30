@@ -64,6 +64,12 @@
     <Filter Include="Source Files\cl_dll\particleman">
       <UniqueIdentifier>{7085339d-2b33-4cdf-846c-0e4c7d33add8}</UniqueIdentifier>
     </Filter>
+        <Filter Include="Header Files\cl_dll\gsphysics">
+      <UniqueIdentifier>{7060eba1-a095-4150-9eed-4958dbc297b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\cl_dll\gsphysics">
+      <UniqueIdentifier>{fe80d87c-f9dd-4c46-a121-01ee3f029bca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -160,9 +166,6 @@
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\flashlight.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\GameStudioModelRenderer.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\geiger.cpp">
@@ -321,6 +324,12 @@
     <ClCompile Include="..\..\cl_dll\particleman\CBaseParticle.cpp">
       <Filter>Source Files\cl_dll\particleman</Filter>
     </ClCompile>
+        <ClCompile Include="..\..\cl_dll\gsphysics\physics.cpp">
+      <Filter>Source Files\cl_dll\gsphysics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhyStudioModelRenderer.cpp">
+      <Filter>Source Files\cl_dll\gsphysics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -351,9 +360,6 @@
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\eventscripts.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\health.h">
@@ -595,6 +601,15 @@
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\particleman\CBaseParticle.h">
       <Filter>Header Files\cl_dll\particleman</Filter>
+    </ClInclude>
+        <ClInclude Include="..\..\cl_dll\gsphysics\phy_corpse.h">
+      <Filter>Header Files\cl_dll\gsphysics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\gsphysics\physics.h">
+      <Filter>Header Files\cl_dll\gsphysics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhyStudioModelRenderer.h">
+      <Filter>Header Files\cl_dll\gsphysics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
