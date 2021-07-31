@@ -3547,7 +3547,22 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			}
 			break;
 		}
-
+	case 77:
+	{
+		{
+			UTIL_MakeVectors(Vector(0, pev->v_angle.y, 0));
+			Create("monster_zombie", pev->origin + gpGlobals->v_forward * 128, pev->angles);
+		}
+		break;
+	}
+	case 78:
+	{
+		{
+			UTIL_MakeVectors(Vector(0, pev->v_angle.y, 0));
+			Create("monster_scientist", pev->origin + gpGlobals->v_forward * 128, pev->angles);
+		}
+		break;
+	}
 
 	case 101:
 		gEvilImpulse101 = TRUE;
