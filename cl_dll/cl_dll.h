@@ -25,7 +25,7 @@
 //		- Drawing the HUD graphics every frame
 //		- Handling the custum HUD-update packets
 //
-
+#pragma once
 #include "Platform.h"
 
 typedef unsigned char byte;

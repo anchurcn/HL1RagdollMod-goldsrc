@@ -15,7 +15,7 @@
 //
 // cl_util.h
 //
-
+#pragma once
 #include "cvardef.h"
 
 #include "Platform.h"
