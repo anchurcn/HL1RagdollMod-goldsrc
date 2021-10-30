@@ -27,7 +27,7 @@
 //		- Drawing the HUD graphics every frame
 //		- Handling the custum HUD-update packets
 //
-
+#pragma once
 #include "Platform.h"
 
 typedef int (*pfnUserMsgHook)(const char* pszName, int iSize, void* pbuf);
