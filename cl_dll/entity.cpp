@@ -20,9 +20,9 @@
 #include<com_model.h>
 extern IParticleMan *g_pParticleMan;
 
-void Game_AddObjects( void );
+void Game_AddObjects();
 
-extern vec3_t v_origin;
+extern Vector v_origin;
 
 int g_iAlive = 1;
 
@@ -237,7 +237,7 @@ void DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const struct
 // Room for 1 beam ( 0 can't be used )
 static cl_entity_t beams[ 2 ];
 
-void BeamEndModel( void )
+void BeamEndModel()
 {
 	cl_entity_t *player, *model;
 	int modelindex;
@@ -272,7 +272,7 @@ void BeamEndModel( void )
 	gEngfuncs.CL_CreateVisibleEntity( ET_NORMAL, model );
 }
 
-void Beams( void )
+void Beams()
 {
 	static float lasttime;
 	float curtime;
@@ -310,7 +310,7 @@ HUD_CreateEntities
 Gives us a chance to add additional entities to the render this frame
 =========================
 */
-void DLLEXPORT HUD_CreateEntities( void )
+void DLLEXPORT HUD_CreateEntities()
 {
 //	RecClCreateEntities();
 
@@ -590,7 +590,7 @@ void HUD_TempEntUpdate_Original (
 
 			if ( pTemp->flags & (FTENT_COLLIDEALL | FTENT_COLLIDEWORLD) )
 			{
-				vec3_t	traceNormal;
+				Vector	traceNormal;
 				float	traceFraction = 1;
 
 				if ( pTemp->flags & FTENT_COLLIDEALL )

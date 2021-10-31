@@ -28,21 +28,6 @@
 
 LINK_ENTITY_TO_CLASS( weapon_crowbar, CCrowbar );
 
-
-
-enum gauss_e {
-	CROWBAR_IDLE = 0,
-	CROWBAR_DRAW,
-	CROWBAR_HOLSTER,
-	CROWBAR_ATTACK1HIT,
-	CROWBAR_ATTACK1MISS,
-	CROWBAR_ATTACK2MISS,
-	CROWBAR_ATTACK2HIT,
-	CROWBAR_ATTACK3MISS,
-	CROWBAR_ATTACK3HIT
-};
-
-
 void CCrowbar::Spawn( )
 {
 	Precache( );
@@ -54,7 +39,7 @@ void CCrowbar::Spawn( )
 }
 
 
-void CCrowbar::Precache( void )
+void CCrowbar::Precache()
 {
 	PRECACHE_MODEL("models/v_crowbar.mdl");
 	PRECACHE_MODEL("models/w_crowbar.mdl");
@@ -91,18 +76,18 @@ BOOL CCrowbar::Deploy( )
 	return DefaultDeploy( "models/v_crowbar.mdl", "models/p_crowbar.mdl", CROWBAR_DRAW, "crowbar" );
 }
 
-void CCrowbar::Holster( int skiplocal /* = 0 */ )
+void CCrowbar::Holster()
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	SendWeaponAnim( CROWBAR_HOLSTER );
 }
 
 
-void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, float *maxs, edict_t *pEntity )
+void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, const Vector& mins, const Vector& maxs, edict_t *pEntity )
 {
 	int			i, j, k;
 	float		distance;
-	float		*minmaxs[2] = {mins, maxs};
+	const Vector* minmaxs[2] = {&mins, &maxs};
 	TraceResult tmpTrace;
 	Vector		vecHullEnd = tr.vecEndPos;
 	Vector		vecEnd;
@@ -123,9 +108,9 @@ void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, f
 		{
 			for ( k = 0; k < 2; k++ )
 			{
-				vecEnd.x = vecHullEnd.x + minmaxs[i][0];
-				vecEnd.y = vecHullEnd.y + minmaxs[j][1];
-				vecEnd.z = vecHullEnd.z + minmaxs[k][2];
+				vecEnd.x = vecHullEnd.x + minmaxs[i]->x;
+				vecEnd.y = vecHullEnd.y + minmaxs[j]->y;
+				vecEnd.z = vecHullEnd.z + minmaxs[k]->z;
 
 				UTIL_TraceLine( vecSrc, vecEnd, dont_ignore_monsters, pEntity, &tmpTrace );
 				if ( tmpTrace.flFraction < 1.0 )
@@ -159,7 +144,7 @@ void CCrowbar::Smack( )
 }
 
 
-void CCrowbar::SwingAgain( void )
+void CCrowbar::SwingAgain()
 {
 	Swing( 0 );
 }
@@ -194,7 +179,7 @@ int CCrowbar::Swing( int fFirst )
 #endif
 
 	PLAYBACK_EVENT_FULL( FEV_NOTHOST, m_pPlayer->edict(), m_usCrowbar, 
-	0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0, 0, 0,
+	0.0, g_vecZero, g_vecZero, 0, 0, 0,
 	0.0, 0, 0.0 );
 
 
@@ -310,7 +295,7 @@ int CCrowbar::Swing( int fFirst )
 		m_pPlayer->m_iWeaponVolume = flVol * CROWBAR_WALLHIT_VOLUME;
 #endif
 		SetThink( &CCrowbar::Smack );
-		pev->nextthink = UTIL_WeaponTimeBase() + 0.2;
+		pev->nextthink = gpGlobals->time + 0.2;
 
 		
 	}

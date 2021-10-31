@@ -99,7 +99,7 @@ HUD_GetWeaponAnim
 Retrieve current predicted weapon animation
 =====================
 */
-int HUD_GetWeaponAnim( void )
+int HUD_GetWeaponAnim()
 {
 	return g_currentanim;
 }
@@ -127,18 +127,18 @@ Directly queue up an event on the client
 =====================
 */
 void HUD_PlaybackEvent( int flags, const edict_t *pInvoker, unsigned short eventindex, float delay,
-	float *origin, float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2 )
+	const float *origin, const float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2 )
 {
-	vec3_t org;
-	vec3_t ang;
+	Vector org;
+	Vector ang;
 
 	if ( !g_runfuncs || !g_finalstate )
 	     return;
 
 	// Weapon prediction events are assumed to occur at the player's origin
 	org			= g_finalstate->playerstate.origin;
-	ang			= v_angles;
-	gEngfuncs.pfnPlaybackEvent( flags, pInvoker, eventindex, delay, (float *)&org, (float *)&ang, fparam1, fparam2, iparam1, iparam2, bparam1, bparam2 );
+	ang			= v_client_aimangles;
+	gEngfuncs.pfnPlaybackEvent( flags, pInvoker, eventindex, delay, org, ang, fparam1, fparam2, iparam1, iparam2, bparam1, bparam2 );
 }
 
 /*
@@ -160,7 +160,7 @@ Always 0.0 on client, even if not predicting weapons ( won't get called
  in that case )
 =====================
 */
-float UTIL_WeaponTimeBase( void )
+float UTIL_WeaponTimeBase()
 {
 	return 0.0;
 }
@@ -187,7 +187,7 @@ unsigned int seed_table[ 256 ] =
 	25678, 18555, 13256, 23316, 22407, 16727, 991, 9236, 5373, 29402, 6117, 15241, 27715, 19291, 19888, 19847
 };
 
-unsigned int U_Random( void ) 
+unsigned int U_Random() 
 { 
 	glSeed *= 69069; 
 	glSeed += seed_table[ glSeed & 0xff ];

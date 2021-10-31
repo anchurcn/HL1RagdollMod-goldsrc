@@ -234,7 +234,7 @@ typedef int							(*pfnEngSrc_pfnGetScreenInfo_t ) 		( struct SCREENINFO_s *pscr
 typedef void						(*pfnEngSrc_pfnSetCrosshair_t )		( HSPRITE hspr, wrect_t rc, int r, int g, int b );
 typedef struct cvar_s *				(*pfnEngSrc_pfnRegisterVariable_t )	( const char *szName, const char *szValue, int flags );
 typedef float						(*pfnEngSrc_pfnGetCvarFloat_t )		( const char *szName );
-typedef char*						(*pfnEngSrc_pfnGetCvarString_t )		( const char *szName );
+typedef const char*						(*pfnEngSrc_pfnGetCvarString_t )	( const char *szName );
 typedef int							(*pfnEngSrc_pfnAddCommand_t )			( const char *cmd_name, void (*pfnEngSrc_function)(void) );
 typedef int							(*pfnEngSrc_pfnHookUserMsg_t )			( const char *szMsgName, pfnUserMsgHook pfn );
 typedef int							(*pfnEngSrc_pfnServerCmd_t )			( const char *szCmdString );
@@ -286,7 +286,7 @@ typedef int							(*pfnEngSrc_CL_CreateVisibleEntity_t )	( int type, struct cl_e
 typedef const struct model_s *		(*pfnEngSrc_GetSpritePointer_t )		( HSPRITE hSprite );
 typedef void						(*pfnEngSrc_pfnPlaySoundByNameAtLocation_t )	( const char *szSound, float volume, float *origin );
 typedef unsigned short				(*pfnEngSrc_pfnPrecacheEvent_t )		( int type, const char* psz );
-typedef void						(*pfnEngSrc_pfnPlaybackEvent_t )		( int flags, const struct edict_s *pInvoker, unsigned short eventindex, float delay, float *origin, float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2 );
+typedef void						(*pfnEngSrc_pfnPlaybackEvent_t )		( int flags, const struct edict_s *pInvoker, unsigned short eventindex, float delay, const float *origin, const float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2 );
 typedef void						(*pfnEngSrc_pfnWeaponAnim_t )			( int iAnim, int body );
 typedef float						(*pfnEngSrc_pfnRandomFloat_t )			( float flLow, float flHigh );
 typedef int32						(*pfnEngSrc_pfnRandomLong_t )			( int32 lLow, int32 lHigh );
@@ -353,6 +353,7 @@ typedef void						(*pfnEngSrc_pfnFillRGBABlend_t )			( int x, int y, int width, 
 typedef int						(*pfnEngSrc_pfnGetAppID_t)			( void );
 typedef cmdalias_t*				(*pfnEngSrc_pfnGetAliases_t)		( void );
 typedef void					(*pfnEngSrc_pfnVguiWrap2_GetMouseDelta_t) ( int *x, int *y );
+typedef int (*pfnEngSrc_pfnFilteredClientCmd_t)(const char* szCmdString);
 
 // Pointers to the exported engine functions themselves
 typedef struct cl_enginefuncs_s
@@ -491,6 +492,7 @@ typedef struct cl_enginefuncs_s
 	pfnEngSrc_pfnGetAppID_t					pfnGetAppID;
 	pfnEngSrc_pfnGetAliases_t				pfnGetAliasList;
 	pfnEngSrc_pfnVguiWrap2_GetMouseDelta_t pfnVguiWrap2_GetMouseDelta;
+	pfnEngSrc_pfnFilteredClientCmd_t pfnFilteredClientCmd;
 } cl_enginefunc_t;
 
 // Function type declarations for engine destination functions

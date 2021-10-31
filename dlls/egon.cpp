@@ -24,30 +24,10 @@
 #include "effects.h"
 #include "customentity.h"
 #include "gamerules.h"
-
-#define	EGON_PRIMARY_VOLUME		450
-#define EGON_BEAM_SPRITE		"sprites/xbeam1.spr"
-#define EGON_FLARE_SPRITE		"sprites/XSpark1.spr"
-#define EGON_SOUND_OFF			"weapons/egon_off1.wav"
-#define EGON_SOUND_RUN			"weapons/egon_run3.wav"
-#define EGON_SOUND_STARTUP		"weapons/egon_windup2.wav"
+#include "UserMessages.h"
 
 #define EGON_SWITCH_NARROW_TIME			0.75			// Time it takes to switch fire modes
 #define EGON_SWITCH_WIDE_TIME			1.5
-
-enum egon_e {
-	EGON_IDLE1 = 0,
-	EGON_FIDGET1,
-	EGON_ALTFIREON,
-	EGON_ALTFIRECYCLE,
-	EGON_ALTFIREOFF,
-	EGON_FIRE1,
-	EGON_FIRE2,
-	EGON_FIRE3,
-	EGON_FIRE4,
-	EGON_DRAW,
-	EGON_HOLSTER
-};
 
 LINK_ENTITY_TO_CLASS( weapon_egon, CEgon );
 
@@ -63,7 +43,7 @@ void CEgon::Spawn( )
 }
 
 
-void CEgon::Precache( void )
+void CEgon::Precache()
 {
 	PRECACHE_MODEL("models/w_egon.mdl");
 	PRECACHE_MODEL("models/v_egon.mdl");
@@ -86,7 +66,7 @@ void CEgon::Precache( void )
 }
 
 
-BOOL CEgon::Deploy( void )
+BOOL CEgon::Deploy()
 {
 	m_deployed = FALSE;
 	m_fireState = FIRE_OFF;
@@ -107,7 +87,7 @@ int CEgon::AddToPlayer( CBasePlayer *pPlayer )
 
 
 
-void CEgon::Holster( int skiplocal /* = 0 */ )
+void CEgon::Holster()
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	SendWeaponAnim( EGON_HOLSTER );
@@ -135,17 +115,17 @@ int CEgon::GetItemInfo(ItemInfo *p)
 #define EGON_PULSE_INTERVAL			0.1
 #define EGON_DISCHARGE_INTERVAL		0.1
 
-float CEgon::GetPulseInterval( void )
+float CEgon::GetPulseInterval()
 {
 	return EGON_PULSE_INTERVAL;
 }
 
-float CEgon::GetDischargeInterval( void )
+float CEgon::GetDischargeInterval()
 {
 	return EGON_DISCHARGE_INTERVAL;
 }
 
-BOOL CEgon::HasAmmo( void )
+BOOL CEgon::HasAmmo()
 {
 	if ( m_pPlayer->ammo_uranium <= 0 )
 		return FALSE;
@@ -161,7 +141,7 @@ void CEgon::UseAmmo( int count )
 		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] = 0;
 }
 
-void CEgon::Attack( void )
+void CEgon::Attack()
 {
 	// don't fire underwater
 	if ( m_pPlayer->pev->waterlevel == 3 )
@@ -202,7 +182,7 @@ void CEgon::Attack( void )
 
 			m_flAmmoUseTime = gpGlobals->time;// start using ammo ASAP.
 
-			PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usEgonFire, 0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, m_fireState, m_fireMode, 1, 0 );
+			PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usEgonFire, 0.0, g_vecZero, g_vecZero, 0.0, 0.0, m_fireState, m_fireMode, 1, 0 );
 						
 			m_shakeTime = 0;
 
@@ -222,7 +202,7 @@ void CEgon::Attack( void )
 		
 			if ( pev->fuser1 <= UTIL_WeaponTimeBase() )
 			{
-				PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usEgonFire, 0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, m_fireState, m_fireMode, 0, 0 );
+				PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usEgonFire, 0, g_vecZero, g_vecZero, 0.0, 0.0, m_fireState, m_fireMode, 0, 0 );
 				pev->fuser1 = 1000;
 			}
 
@@ -237,7 +217,7 @@ void CEgon::Attack( void )
 	}
 }
 
-void CEgon::PrimaryAttack( void )
+void CEgon::PrimaryAttack()
 {
 	m_fireMode = FIRE_WIDE;
 	Attack();
@@ -413,7 +393,7 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 
 }
 
-void CEgon::CreateEffect( void )
+void CEgon::CreateEffect()
 {
 
 #ifndef CLIENT_DLL
@@ -462,7 +442,7 @@ void CEgon::CreateEffect( void )
 }
 
 
-void CEgon::DestroyEffect( void )
+void CEgon::DestroyEffect()
 {
 
 #ifndef CLIENT_DLL
@@ -490,7 +470,7 @@ void CEgon::DestroyEffect( void )
 
 
 
-void CEgon::WeaponIdle( void )
+void CEgon::WeaponIdle()
 {
 	if (!(m_pPlayer->m_afButtonPressed & IN_ATTACK2) && (m_pPlayer->pev->button & IN_ATTACK))
 	{
@@ -526,14 +506,14 @@ void CEgon::WeaponIdle( void )
 
 
 
-void CEgon::EndAttack( void )
+void CEgon::EndAttack()
 {
 	bool bMakeNoise = false;
 		
 	if ( m_fireState != FIRE_OFF ) //Checking the button just in case!.
 		 bMakeNoise = true;
 
-	PLAYBACK_EVENT_FULL( FEV_GLOBAL | FEV_RELIABLE, m_pPlayer->edict(), m_usEgonStop, 0, (float *)&m_pPlayer->pev->origin, (float *)&m_pPlayer->pev->angles, 0.0, 0.0, bMakeNoise, 0, 0, 0 );
+	PLAYBACK_EVENT_FULL( FEV_GLOBAL | FEV_RELIABLE, m_pPlayer->edict(), m_usEgonStop, 0, m_pPlayer->pev->origin, m_pPlayer->pev->angles, 0.0, 0.0, bMakeNoise, 0, 0, 0 );
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 2.0;
 	m_flNextPrimaryAttack = m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.5;
@@ -547,18 +527,18 @@ void CEgon::EndAttack( void )
 
 class CEgonAmmo : public CBasePlayerAmmo
 {
-	void Spawn( void )
+	void Spawn() override
 	{ 
 		Precache( );
 		SET_MODEL(ENT(pev), "models/w_chainammo.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
-	void Precache( void )
+	void Precache() override
 	{
 		PRECACHE_MODEL ("models/w_chainammo.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
 	}
-	BOOL AddAmmo( CBaseEntity *pOther ) 
+	BOOL AddAmmo( CBaseEntity *pOther ) override
 	{ 
 		if (pOther->GiveAmmo( AMMO_URANIUMBOX_GIVE, "uranium", URANIUM_MAX_CARRY ) != -1)
 		{

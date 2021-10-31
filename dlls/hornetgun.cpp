@@ -23,16 +23,7 @@
 #include "player.h"
 #include "hornet.h"
 #include "gamerules.h"
-
-
-enum hgun_e {
-	HGUN_IDLE1 = 0,
-	HGUN_FIDGETSWAY,
-	HGUN_FIDGETSHAKE,
-	HGUN_DOWN,
-	HGUN_UP,
-	HGUN_SHOOT
-};
+#include "UserMessages.h"
 
 enum firemode_e
 {
@@ -43,7 +34,7 @@ enum firemode_e
 
 LINK_ENTITY_TO_CLASS( weapon_hornetgun, CHgun );
 
-BOOL CHgun::IsUseable( void )
+BOOL CHgun::IsUseable()
 {
 	return TRUE;
 }
@@ -61,7 +52,7 @@ void CHgun::Spawn( )
 }
 
 
-void CHgun::Precache( void )
+void CHgun::Precache()
 {
 	PRECACHE_MODEL("models/v_hgun.mdl");
 	PRECACHE_MODEL("models/w_hgun.mdl");
@@ -116,7 +107,7 @@ BOOL CHgun::Deploy( )
 	return DefaultDeploy( "models/v_hgun.mdl", "models/p_hgun.mdl", HGUN_UP, "hive" );
 }
 
-void CHgun::Holster( int skiplocal /* = 0 */ )
+void CHgun::Holster()
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	SendWeaponAnim( HGUN_DOWN );
@@ -160,7 +151,7 @@ void CHgun::PrimaryAttack()
 	flags = 0;
 #endif
 
-	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usHornetFire, 0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, FIREMODE_TRACK, 0, 0, 0 );
+	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usHornetFire, 0.0, g_vecZero, g_vecZero, 0.0, 0.0, FIREMODE_TRACK, 0, 0, 0 );
 
 	
 
@@ -179,7 +170,7 @@ void CHgun::PrimaryAttack()
 
 
 
-void CHgun::SecondaryAttack( void )
+void CHgun::SecondaryAttack()
 {
 	Reload();
 
@@ -247,7 +238,7 @@ void CHgun::SecondaryAttack( void )
 	flags = 0;
 #endif
 
-	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usHornetFire, 0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, FIREMODE_FAST, 0, 0, 0 );
+	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usHornetFire, 0.0, g_vecZero, g_vecZero, 0.0, 0.0, FIREMODE_FAST, 0, 0, 0 );
 
 
 	m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
@@ -262,7 +253,7 @@ void CHgun::SecondaryAttack( void )
 }
 
 
-void CHgun::Reload( void )
+void CHgun::Reload()
 {
 	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] >= HORNET_MAX_CARRY)
 		return;
@@ -275,7 +266,7 @@ void CHgun::Reload( void )
 }
 
 
-void CHgun::WeaponIdle( void )
+void CHgun::WeaponIdle()
 {
 	Reload( );
 
