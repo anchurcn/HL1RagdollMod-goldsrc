@@ -149,11 +149,11 @@ typedef struct
 } moveclip_t;
 
 extern trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end);
-void CheckLevelChange();
+
 void DLLEXPORT CAM_Think( void )
 {
 //	RecClCamThink();
-	CheckLevelChange();
+
 
 	vec3_t origin;
 	vec3_t ext, pnt, camForward, camRight, camUp;

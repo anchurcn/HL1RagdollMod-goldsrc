@@ -55,12 +55,6 @@
     <Filter Include="Source Files\_hl\cl_dll\hl">
       <UniqueIdentifier>{bd9d5958-4e67-4bff-bbd8-6ba6dfcdb720}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\cl_dll\gsphysics">
-      <UniqueIdentifier>{7060eba1-a095-4150-9eed-4958dbc297b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\cl_dll\gsphysics">
-      <UniqueIdentifier>{fe80d87c-f9dd-4c46-a121-01ee3f029bca}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -309,12 +303,6 @@
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp">
       <Filter>Source Files\pm_shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\gsphysics\physics.cpp">
-      <Filter>Source Files\cl_dll\gsphysics</Filter>
-    </ClCompile>
-    <ClCompile Include="PhyStudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll\gsphysics</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -436,15 +424,6 @@
     </ClInclude>
     <ClInclude Include="..\..\common\Platform.h">
       <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\gsphysics\phy_corpse.h">
-      <Filter>Header Files\cl_dll\gsphysics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\gsphysics\physics.h">
-      <Filter>Header Files\cl_dll\gsphysics</Filter>
-    </ClInclude>
-    <ClInclude Include="PhyStudioModelRenderer.h">
-      <Filter>Header Files\cl_dll\gsphysics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

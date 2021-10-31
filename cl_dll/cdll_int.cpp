@@ -38,8 +38,7 @@
 #include "tri.h"
 #include "vgui_TeamFortressViewport.h"
 #include "../public/interface.h"
-#include "physics.h"
-#include"phy_corpse.h"
+#include<PhysicsManager.h>
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
@@ -155,8 +154,33 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	return 1;
 }
 
+void HUD_NewMap()
+{
+	gPhysicsManager.NewMap();
+}
 
-bool newLevelBegin = false;
+void NewMapBegin(bool isNewMap)
+{
+	static bool isNewJustNow = false;
+	if (isNewMap)
+		isNewJustNow = true;
+	else
+	{
+		if (isNewJustNow)
+		{
+			const char* pLevelName = gEngfuncs.pfnGetLevelName();
+			if (pLevelName && pLevelName[0]) {
+				HUD_NewMap();
+			}
+			else
+			{
+				gEngfuncs.pfnClientCmd("disconnect\n");
+				gEngfuncs.Con_Printf("Couldn't get map name from level name!\n");
+			}
+			isNewJustNow = false;
+		}
+	}
+}
 /*
 ==========================
 	HUD_VidInit
@@ -173,29 +197,9 @@ int DLLEXPORT HUD_VidInit( void )
 	gHUD.VidInit();
 
 	VGui_Startup();
-	newLevelBegin = true;
+	NewMapBegin(true);
 
 	return 1;
-}
-void CheckLevelChange()
-{
-	if (newLevelBegin)
-	{
-		newLevelBegin = false;
-
-		const char* pLevelName = gEngfuncs.pfnGetLevelName();
-		if (pLevelName && pLevelName[0]) {
-			gPhysics.ChangeLevel(pLevelName);
-			if (!pgCorpseMgr)
-				delete pgCorpseMgr;
-			pgCorpseMgr = new CorpseManager();
-		}
-		else
-		{
-			gEngfuncs.pfnClientCmd("disconnect\n");
-			gEngfuncs.Con_Printf("Couldn't get map name from level name!\n");
-		}
-	}
 }
 
 /*
@@ -231,7 +235,7 @@ int DLLEXPORT HUD_Redraw( float time, int intermission )
 //	RecClHudRedraw(time, intermission);
 
 	gHUD.Redraw( time, intermission );
-
+	
 	return 1;
 }
 
