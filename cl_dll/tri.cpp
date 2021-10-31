@@ -20,6 +20,7 @@
 
 #include "particleman.h"
 #include "tri.h"
+#include<PhysicsManager.h>
 extern IParticleMan* g_pParticleMan;
 
 /*
@@ -51,4 +52,6 @@ void DLLEXPORT HUD_DrawTransparentTriangles()
 
 	if (g_pParticleMan)
 		g_pParticleMan->Update();
+
+	gPhysicsManager.Draw();
 }

@@ -15,7 +15,7 @@
 #include "Exports.h"
 
 #include "particleman.h"
-#include"physics.h"
+#include<PhysicsManager.h>
 #include<com_model.h>
 extern IParticleMan* g_pParticleMan;
 
@@ -51,6 +51,7 @@ int DLLEXPORT HUD_AddEntity(int type, struct cl_entity_s* ent, const char* model
 	// each frame every entity passes this function, so the overview hooks
 	// it to filter the overview entities
 
+	gPhysicsManager.AddEntity(ent, type);
 	if (0 != g_iUser1)
 	{
 		gHUD.m_Spectator.AddOverviewEntity(type, ent, modelname);
@@ -58,15 +59,6 @@ int DLLEXPORT HUD_AddEntity(int type, struct cl_entity_s* ent, const char* model
 		if ((g_iUser1 == OBS_IN_EYE || gHUD.m_Spectator.m_pip->value == INSET_IN_EYE) &&
 			ent->index == g_iUser2)
 			return 0; // don't draw the player we are following in eye
-	}
-
-	if (ent->index && ent->index < 512)
-	{
-		// server side brush entity only.(breakables, trains, func_walls...)
-		if (ent->model->type == modtype_t::mod_brush)
-		{
-			gPhysics.AddCollider(ent);
-		}
 	}
 	
 	return 1;
@@ -106,6 +98,7 @@ We have received entity_state_t for this player over the network.  We need to co
 playerstate structure
 =========================
 */
+void NewMapBegin(bool isNewMap);
 void DLLEXPORT HUD_ProcessPlayerState(struct entity_state_s* dst, const struct entity_state_s* src)
 {
 	//	RecClProcessPlayerState(dst, src);
@@ -163,6 +156,7 @@ void DLLEXPORT HUD_ProcessPlayerState(struct entity_state_s* dst, const struct e
 		g_iUser2 = src->iuser2;
 		g_iUser3 = src->iuser3;
 	}
+	NewMapBegin(false);
 }
 
 /*
@@ -321,12 +315,6 @@ void DLLEXPORT HUD_CreateEntities()
 	Game_AddObjects();
 
 	GetClientVoiceMgr()->CreateEntities();
-
-	static float oldtime = 0;
-	float currentTime = gEngfuncs.GetClientTime();
-	float delta = currentTime-oldtime;
-	oldtime = currentTime;
-	gPhysics.Update(delta);
 }
 
 
@@ -469,9 +457,6 @@ void DLLEXPORT HUD_TempEntUpdate(
 		}
 		if (!active) // Kill it
 		{
-			if (pTemp->callback && pTemp->flags & FTENT_KILLCALLBACK)
-				pTemp->callback(pTemp, frametime, client_time);
-
 			pTemp->next = *ppTempEntFree;
 			*ppTempEntFree = pTemp;
 			if (!pprev) // Deleting at head of list
@@ -752,6 +737,34 @@ void DLLEXPORT HUD_TempEntUpdate(
 finish:
 	// Restore state info
 	gEngfuncs.pEventAPI->EV_PopPMStates();
+}
+
+/*
+=================
+CL_UpdateTEnts
+
+Simulation and cleanup of temporary entities
+=================
+*/
+void DLLEXPORT HUD_TempEntUpdate (
+	double frametime,   // Simulation time
+	double client_time, // Absolute time on client
+	double cl_gravity,  // True gravity on client
+	TEMPENTITY **ppTempEntFree,   // List of freed temporary ents
+	TEMPENTITY **ppTempEntActive, // List 
+	int		( *Callback_AddVisibleEntity )( cl_entity_t *pEntity ),
+	void	( *Callback_TempEntPlaySound )( TEMPENTITY *pTemp, float damp ) )
+{
+	HUD_TempEntUpdate_Original(
+		frametime,
+		client_time,
+		cl_gravity,
+		ppTempEntFree,
+		ppTempEntActive,
+		Callback_AddVisibleEntity,
+		Callback_TempEntPlaySound
+	);
+	gPhysicsManager.Update(client_time, frametime);
 }
 
 /*
