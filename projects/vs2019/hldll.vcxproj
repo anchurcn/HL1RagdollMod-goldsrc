@@ -71,8 +71,7 @@
       <ModuleDefinitionFile>$(ProjectDir)..\..\dlls\hl.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy "$(Configuration)\$(ProjectName)\hl.dll" "F:\Steam\steamapps\common\Half-Life\hlragdoll\dlls"</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -99,8 +98,7 @@
       <ModuleDefinitionFile>$(ProjectDir)..\..\dlls\hl.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy "$(Configuration)\$(ProjectName)\hl.dll" "F:\Steam\steamapps\common\Half-Life\hlragdoll\dlls"</Command>
     </PostBuildEvent>
     <PostBuildEvent />
   </ItemDefinitionGroup>
