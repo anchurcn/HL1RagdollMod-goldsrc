@@ -1,0 +1,6 @@
+[submodule "gsphysics"]
+	path = gsphysics
+	url = https://github.com/anchurcn/gsphysics.git
+[submodule "bullet3"]
+	path = bullet3
+	url = https://github.com/bulletphysics/bullet3.git
