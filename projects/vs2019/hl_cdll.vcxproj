@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\cl_dll\statusbar.cpp" />
     <ClCompile Include="..\..\cl_dll\status_icons.cpp" />
     <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp" />
+    <ClCompile Include="..\..\cl_dll\StudioModelRendererExports.cpp" />
     <ClCompile Include="..\..\cl_dll\studio_util.cpp" />
     <ClCompile Include="..\..\cl_dll\text_message.cpp" />
     <ClCompile Include="..\..\cl_dll\train.cpp" />
