@@ -370,7 +370,7 @@ CL_UpdateTEnts
 Simulation and cleanup of temporary entities
 =================
 */
-void DLLEXPORT HUD_TempEntUpdate(
+void DLLEXPORT HUD_TempEntUpdate_Original(
 	double frametime,			  // Simulation time
 	double client_time,			  // Absolute time on client
 	double cl_gravity,			  // True gravity on client
