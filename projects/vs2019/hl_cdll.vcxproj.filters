@@ -64,7 +64,7 @@
     <Filter Include="Source Files\cl_dll\particleman">
       <UniqueIdentifier>{7085339d-2b33-4cdf-846c-0e4c7d33add8}</UniqueIdentifier>
     </Filter>
-        <Filter Include="Header Files\cl_dll\gsphysics">
+    <Filter Include="Header Files\cl_dll\gsphysics">
       <UniqueIdentifier>{7060eba1-a095-4150-9eed-4958dbc297b1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\cl_dll\gsphysics">
@@ -324,11 +324,8 @@
     <ClCompile Include="..\..\cl_dll\particleman\CBaseParticle.cpp">
       <Filter>Source Files\cl_dll\particleman</Filter>
     </ClCompile>
-        <ClCompile Include="..\..\cl_dll\gsphysics\physics.cpp">
-      <Filter>Source Files\cl_dll\gsphysics</Filter>
-    </ClCompile>
-    <ClCompile Include="PhyStudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll\gsphysics</Filter>
+    <ClCompile Include="..\..\cl_dll\StudioModelRendererExports.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -601,12 +598,6 @@
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\particleman\CBaseParticle.h">
       <Filter>Header Files\cl_dll\particleman</Filter>
-    </ClInclude>
-        <ClInclude Include="..\..\cl_dll\gsphysics\phy_corpse.h">
-      <Filter>Header Files\cl_dll\gsphysics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\gsphysics\physics.h">
-      <Filter>Header Files\cl_dll\gsphysics</Filter>
     </ClInclude>
     <ClInclude Include="PhyStudioModelRenderer.h">
       <Filter>Header Files\cl_dll\gsphysics</Filter>
