@@ -207,7 +207,7 @@ typedef struct glpoly_s
 //	byte* samples;		// [numstyles*surfsize]
 //} msurface_t;
 // 8684 surface
-typedef struct msurface_s
+typedef struct msurface_s8684
 {
 	int			visframe;		// should be drawn when node is crossed
 
@@ -236,7 +236,66 @@ typedef struct msurface_s
 	int			lightmaptexturenum;
 
 	int			unknow[5];
-}msurface_t;
+} msurface_t8684;
+
+// hl25 software renderer
+//typedef struct msurface_s
+//{
+//	int			visframe;		// should be drawn when node is crossed
+//	int			unknow0[2];
+//
+//	mplane_t*	plane;
+//	int			flags;
+//
+//	int			firstedge;	// look up in model->surfedges[], negative numbers
+//	int			numedges;	// are backwards edges
+//
+//	short		texturemins[2];
+//	short		extents[2];
+//
+//	int			light_s, light_t;	// gl lightmap coordinates
+//	glpoly_t*	polys;				// multiple if warped
+//	int			dlight_s, dlight_t; // gl lightmap coordinates for dynamic lightmaps
+//
+//	struct	msurface_s* texturechain;
+//	struct  msurface_s* lightmapchain;
+//
+//	mtexinfo_t* texinfo;
+//
+//}msurface_t;
+// hl25th
+typedef struct msurface_s
+{
+	int visframe; // should be drawn when node is crossed
+
+	mplane_t* plane;
+	int flags;
+
+	int firstedge; // look up in model->surfedges[], negative numbers
+	int numedges;  // are backwards edges
+
+	short texturemins[2];
+	short extents[2];
+
+	int light_s, light_t; // gl lightmap coordinates
+	glpoly_t* polys;	  // multiple if warped
+
+	struct msurface_s* texturechain;
+	mtexinfo_t* texinfo;
+
+	// lighting info
+	int dlightframe;
+	int dlightbits;
+
+	int lightmaptexturenum;
+
+	byte styles[MAXLIGHTMAPS];
+	int cached_light[MAXLIGHTMAPS];
+	qboolean cached_dlight;
+	byte* samples;
+	struct decal_s* pdecals;
+	int unknow[4];
+} msurface_t;
 /*
  // ???
 struct msurface_s
